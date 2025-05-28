@@ -29,12 +29,12 @@ public class CustomerGUI extends JPanel {
 		
 		//Panel to hold the button
 		JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
+		buttonPanel.setBorder(BorderFactory.createEmptyBorder(15, 0, 7, 0));
 		
-		fetchButton = new JButton("Fetch Customer Last Names");
+		fetchButton = new JButton("Last Names Only");
 		int frameWidth = 400;
-		int buttonWidth = (int) (frameWidth * 0.6);
-		int buttonHeight = 30;
+		int buttonWidth = (int) (frameWidth * 0.35);
+		int buttonHeight = 22;
 		fetchButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
 		buttonPanel.add(fetchButton);
 		add(buttonPanel, BorderLayout.NORTH);

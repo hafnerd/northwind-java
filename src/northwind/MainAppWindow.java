@@ -17,7 +17,7 @@ public class MainAppWindow extends JFrame {
 	private CardLayout cardLayout;
 	private JPanel contentPanel;
 	
-	public MainAppWindow(String userRole) {
+	public MainAppWindow(String userRole, String connString) {
 		// set up GUI
 		setTitle("Northwind Java App - " + userRole);
 		setSize(400, 600);
@@ -28,7 +28,7 @@ public class MainAppWindow extends JFrame {
 		cardLayout = new CardLayout();
 		contentPanel = new JPanel(cardLayout);
 
-		String connStr = "jdbc:sqlserver://localhost:1433;databaseName=Northwind;user=root;password=root;encrypt=true;trustServerCertificate=true;";
+		// String connStr = "jdbc:sqlserver://localhost:1433;databaseName=Northwind;user=root;password=root;encrypt=true;trustServerCertificate=true;";
 		
 		JPanel navPanel = new JPanel();
 		add(navPanel, BorderLayout.NORTH);
@@ -39,15 +39,15 @@ public class MainAppWindow extends JFrame {
 			JButton orderBtn = new JButton("Orders");
 			navPanel.add(customerBtn);
 			navPanel.add(orderBtn);
-			contentPanel.add(new CustomerGUI(connStr), "CUSTOMERS");
-			contentPanel.add(new OrderGUI(connStr), "ORDERS");
+			contentPanel.add(new CustomerGUI(connString), "CUSTOMERS");
+			contentPanel.add(new OrderGUI(connString), "ORDERS");
 			customerBtn.addActionListener(e -> cardLayout.show(contentPanel, "CUSTOMERS"));
 			orderBtn.addActionListener(e -> cardLayout.show(contentPanel, "ORDERS"));
 		}
 		if (userRole.equals("HRRole") || userRole.equals("CEORole")) {
 			JButton employeeBtn = new JButton("Employees");
 			navPanel.add(employeeBtn);
-			contentPanel.add(new EmployeeGUI(connStr), "EMPLOYEES");
+			contentPanel.add(new EmployeeGUI(connString), "EMPLOYEES");
 			employeeBtn.addActionListener(e -> cardLayout.show(contentPanel, "EMPLOYEES"));
 		}
 		
