@@ -36,4 +36,54 @@ public class CustomerDAO {
 		}
 		return new CustomerSummary(count, lastNames);
 	}
+	
+	public List<Customer> getAllCustomers() {
+		String sql = "SELECT CustomerID, CompanyName, ContactName, ContactTitle, Country FROM Customers";
+		List<Customer> customers = new ArrayList<>();
+		
+		try (Connection conn = dbConnector.getConnection();
+			 PreparedStatement stmt = conn.prepareStatement(sql);
+			 ResultSet rs = stmt.executeQuery()) {
+
+			while (rs.next()) {
+				Customer customer = new Customer(
+					rs.getString("CustomerID"),
+					rs.getString("CompanyName"),
+					rs.getString("ContactName"),
+					rs.getString("ContactTitle"),
+					rs.getString("Country")
+				);
+				customers.add(customer);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return customers;
+	}
+	
+	public List<Employee> getAllEmployees() {
+		String sql = "SELECT EmployeeID, FirstName, LastName, Title, Salary FROM Employees";
+		List<Employee> employees = new ArrayList<>();
+		
+		try (Connection conn = dbConnector.getConnection();
+			 PreparedStatement stmt = conn.prepareStatement(sql);
+			 ResultSet rs = stmt.executeQuery()) {
+
+			while (rs.next()) {
+				Employee employee = new Employee(
+					rs.getString("EmployeeID"),
+					rs.getString("FirstName"),
+					rs.getString("LastName"),
+					rs.getString("Title"),
+					rs.getString("Salary")
+				);
+				employees.add(employee);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return employees;
+	}
 }

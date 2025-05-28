@@ -13,21 +13,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class CustomerViewerGUI extends JFrame {
+public class CustomerGUI extends JPanel {
 	private JTextArea outputArea;
 	private JButton fetchButton;
 	private CustomerService customerService;
 	
-	public CustomerViewerGUI(String connectionString) {
+	public CustomerGUI(String connectionString) {
 		// dbAccess
 		DBConnector dbConnector = new DBConnector(connectionString);
 		CustomerDAO customerDAO = new CustomerDAO(dbConnector);
 		customerService = new CustomerService(customerDAO);
 		
 		// set up GUI
-		setTitle("Customer Last Names");
-		setSize(400, 600);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
 		
 		//Panel to hold the button

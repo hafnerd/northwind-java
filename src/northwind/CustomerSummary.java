@@ -5,11 +5,21 @@ import java.util.List;
 public class CustomerSummary {
 	private int count;
 	private List<String> names;
+	private String customerId;
+	private String companyName;
+	private String contactName;
+	private String contactTitle;
+	private String country;
 	
 	// Constructor for DAO to use
 	public CustomerSummary(int count, List<String> names) {
 		this.count = count;
 		this.names = names;
+		this.customerId = customerId;
+		this.companyName = companyName;
+		this.contactName = contactName;
+		this.contactTitle = contactTitle;
+		this.country = country;
 	}
 	
 	// Constructor that accepts connection string, uses DAO internally
@@ -22,13 +32,13 @@ public class CustomerSummary {
 		this.names = summary.getNames();
 	}
 	
-	public int getCount() {
-		return count;
-	}
-	
-	public List<String> getNames() {
-		return names;
-	}
+	public int getCount() { return count; }	
+	public List<String> getNames() { return names; }
+	public String getCustomerId() { return customerId; }
+	public String getCompanyName() { return companyName; }
+	public String getContactName() { return contactName; }
+	public String getContactTitle() { return contactTitle; }
+	public String getCountry() { return country; }
 	
 	public void printSummary() {
 		System.out.println("Total customers: " + count);
@@ -36,5 +46,10 @@ public class CustomerSummary {
 		for (String name : names) {
 			System.out.println(" - " + name);
 		}
+		System.out.println("Customer ID: " + customerId);
+		System.out.println("Company Name: " + companyName);
+		System.out.println("Contact Name: " + contactName);
+		System.out.println("Contact Title: " + contactTitle);
+		System.out.println("Country: " + country);
 	}
 }

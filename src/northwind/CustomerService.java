@@ -1,5 +1,7 @@
 package northwind;
 
+import java.util.List;
+
 public class CustomerService {
 	private CustomerDAO customerDAO;
 	
@@ -9,5 +11,9 @@ public class CustomerService {
 	
 	public CustomerSummary getCustomerSummary() {
 		return customerDAO.getCustomerSummary();
+	}
+	
+	public List<Customer> getAllCustomers() {
+		return customerDAO.getAllCustomers();
 	}
 }
