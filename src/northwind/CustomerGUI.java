@@ -36,6 +36,7 @@ public class CustomerGUI extends JPanel {
 		int buttonWidth = (int) (frameWidth * 0.35);
 		int buttonHeight = 22;
 		fetchButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+		fetchButton.addActionListener(e -> refresh(true));
 		buttonPanel.add(fetchButton);
 		add(buttonPanel, BorderLayout.NORTH);
 		
@@ -44,50 +45,30 @@ public class CustomerGUI extends JPanel {
 		outputArea.setBorder(BorderFactory.createEmptyBorder(20, 20, 0,0));
 		
 		add(new JScrollPane(outputArea), BorderLayout.CENTER);
+		refresh(false);
+	}
 		
-		List<Customer> customers = customerService.getAllCustomers();
-		outputArea.setText("Total customers: " + customers.size() + "\n\n");
-		
-		for (Customer customer : customers) {
-			outputArea.append("Customer ID: " + customer.getCustomerId() + "\n");
-			outputArea.append("Company Name: " + customer.getCompanyName() + "\n");
-			outputArea.append("Contact Name: " + customer.getContactName() + "\n");
-			outputArea.append("Contact Title: " + customer.getContactTitle() + "\n");
-			outputArea.append("Country: " + customer.getCountry() + "\n");
-			outputArea.append("------------------------------\n");
-		}
-		
-		outputArea.setCaretPosition(0);
-		
-		// Button action
-		fetchButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				outputArea.setText(""); // clear
-				CustomerSummary summary = customerService.getCustomerSummary();
-				outputArea.append("Total customers: " + summary.getCount() + "\n\n");
-				for (String lastName: summary.getNames()) {
-					outputArea.append(" - " + lastName + "\n");
-				}
+		public void refresh(boolean lastNamesOnly) {
+	        outputArea.setText("");
 
-				outputArea.setCaretPosition(0);
-				
-				int lineCount = outputArea.getLineCount();
-				int lineHeight = outputArea.getFontMetrics(outputArea.getFont()).getHeight();
-				
-				int contentHeight = lineCount * lineHeight;
-				int buttonPanelHeight = fetchButton.getPreferredSize().height + 60;
-				int totalHeight = contentHeight + buttonPanelHeight;
-
-				int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
-				int finalHeight = Math.min(totalHeight,  screenHeight);
-				
-				setSize(400, finalHeight);
-				validate();
-
-			}
-		});
-		
-		setVisible(true);
+	    if (lastNamesOnly) {
+	        CustomerSummary summary = customerService.getCustomerSummary();
+	        outputArea.append("Total customers: " + summary.getCount() + "\n\n");
+	        for (String name : summary.getNames()) {
+	            outputArea.append(" - " + name + "\n");
+	        }
+	    } else {
+	        List<Customer> customers = customerService.getAllCustomers();
+	        outputArea.append("Total customers: " + customers.size() + "\n\n");
+	        for (Customer c : customers) {
+	            outputArea.append("Customer ID: " + c.getCustomerId() + "\n");
+	            outputArea.append("Company Name: " + c.getCompanyName() + "\n");
+	            outputArea.append("Contact Name: " + c.getContactName() + "\n");
+	            outputArea.append("Contact Title: " + c.getContactTitle() + "\n");
+	            outputArea.append("Country: " + c.getCountry() + "\n");
+	            outputArea.append("------------------------------\n");
+	        }
+	    }
+	    outputArea.setCaretPosition(0);
 	}
 }

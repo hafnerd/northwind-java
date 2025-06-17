@@ -15,11 +15,6 @@ public class CustomerSummary {
 	public CustomerSummary(int count, List<String> names) {
 		this.count = count;
 		this.names = names;
-		this.customerId = customerId;
-		this.companyName = companyName;
-		this.contactName = contactName;
-		this.contactTitle = contactTitle;
-		this.country = country;
 	}
 	
 	// Constructor that accepts connection string, uses DAO internally

@@ -16,6 +16,7 @@ import java.util.List;
 public class MainAppWindow extends JFrame {
 	private CardLayout cardLayout;
 	private JPanel contentPanel;
+	private CustomerGUI customerPanel;
 	
 	public MainAppWindow(String userRole, String connString) {
 		// set up GUI
@@ -39,9 +40,13 @@ public class MainAppWindow extends JFrame {
 			JButton orderBtn = new JButton("Orders");
 			navPanel.add(customerBtn);
 			navPanel.add(orderBtn);
-			contentPanel.add(new CustomerGUI(connString), "CUSTOMERS");
+			customerPanel = new CustomerGUI(connString);
+			contentPanel.add(customerPanel, "CUSTOMERS");
 			contentPanel.add(new OrderGUI(connString), "ORDERS");
-			customerBtn.addActionListener(e -> cardLayout.show(contentPanel, "CUSTOMERS"));
+			customerBtn.addActionListener(e -> {
+				customerPanel.refresh(false);
+				cardLayout.show(contentPanel, "CUSTOMERS");
+			});
 			orderBtn.addActionListener(e -> cardLayout.show(contentPanel, "ORDERS"));
 		}
 		if (userRole.equals("HRRole") || userRole.equals("CEORole")) {
